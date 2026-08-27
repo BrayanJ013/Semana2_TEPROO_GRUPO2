@@ -6,11 +6,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
 
 public class V1 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	private JTextField txtCat1;
+	private JTextField txtCat2;
+	private JButton btnNewButton;
+	private JTextArea txtS;
 
 	/**
 	 * Launch the application.
@@ -38,7 +48,38 @@ public class V1 extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		{
+			lblNewLabel = new JLabel("Cateto 1:");
+			lblNewLabel.setBounds(10, 26, 44, 12);
+			contentPane.add(lblNewLabel);
+		}
+		{
+			lblNewLabel_1 = new JLabel("Cateto 2:");
+			lblNewLabel_1.setBounds(10, 58, 44, 12);
+			contentPane.add(lblNewLabel_1);
+		}
+		{
+			txtCat1 = new JTextField();
+			txtCat1.setBounds(64, 23, 96, 18);
+			contentPane.add(txtCat1);
+			txtCat1.setColumns(10);
+		}
+		{
+			txtCat2 = new JTextField();
+			txtCat2.setBounds(64, 55, 96, 18);
+			contentPane.add(txtCat2);
+			txtCat2.setColumns(10);
+		}
+		{
+			btnNewButton = new JButton("Procesar");
+			btnNewButton.setBounds(243, 36, 84, 20);
+			contentPane.add(btnNewButton);
+		}
+		{
+			txtS = new JTextArea();
+			txtS.setBounds(10, 80, 416, 173);
+			contentPane.add(txtS);
+		}
 
 	}
-
 }

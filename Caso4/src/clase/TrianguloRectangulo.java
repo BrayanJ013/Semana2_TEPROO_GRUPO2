@@ -23,5 +23,13 @@ public double getCateto2() {
 public void setCateto2(double cateto2) {
 	this.cateto2 = cateto2;
 }	
-
+public double area() {
+	return cateto1*cateto2/2;
+}
+public double hipotenusa() {
+	return Math.hypot(cateto2, cateto1);
+}
+public double perimetro() {
+	return cateto1+cateto2+hipotenusa();
+}
 }
