@@ -28,6 +28,7 @@ public class V1 extends JFrame implements ActionListener {
 	private JButton btnHipotenusa;
 	private JButton btnLimpiar;
 	private JTextArea txtS;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -50,7 +51,7 @@ public class V1 extends JFrame implements ActionListener {
 	 */
 	public V1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 251, 491);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,42 +68,51 @@ public class V1 extends JFrame implements ActionListener {
 		}
 		{
 			txtCat1 = new JTextField();
-			txtCat1.setBounds(75, 23, 96, 18);
+			txtCat1.setBounds(80, 23, 54, 18);
 			contentPane.add(txtCat1);
 			txtCat1.setColumns(10);
 		}
 		{
 			txtCat2 = new JTextField();
-			txtCat2.setBounds(75, 55, 96, 18);
+			txtCat2.setBounds(80, 55, 54, 18);
 			contentPane.add(txtCat2);
 			txtCat2.setColumns(10);
 		}
 		{
-			btnNewButton = new JButton("Procesar");
+			btnNewButton = new JButton("Area");
 			btnNewButton.addActionListener(this);
-			btnNewButton.setBounds(198, 22, 100, 25);
+			btnNewButton.setBounds(20, 81, 85, 25);
 			contentPane.add(btnNewButton);
 		}
 		{
 			btnHipotenusa = new JButton("Hipotenusa");
 			btnHipotenusa.addActionListener(this);
-			btnHipotenusa.setBounds(198, 55, 100, 25);
+			btnHipotenusa.setBounds(124, 81, 87, 25);
 			contentPane.add(btnHipotenusa);
 		}
 		{
 			btnLimpiar = new JButton("Limpiar");
 			btnLimpiar.addActionListener(this);
-			btnLimpiar.setBounds(304, 22, 100, 25);
+			btnLimpiar.setBounds(138, 20, 73, 25);
 			contentPane.add(btnLimpiar);
 		}
 		{
 			txtS = new JTextArea();
-			txtS.setBounds(10, 80, 416, 173);
+			txtS.setBounds(20, 154, 191, 284);
 			contentPane.add(txtS);
+		}
+		{
+			btnNewButton_1 = new JButton("Perimetro");
+			btnNewButton_1.addActionListener(this);
+			btnNewButton_1.setBounds(18, 117, 87, 23);
+			contentPane.add(btnNewButton_1);
 		}
 
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton_1) {
+			do_btnNewButton_1_actionPerformed(e);
+		}
 		if (e.getSource() == btnNewButton) {
 			do_btnNewButton_actionPerformed(e);
 		}
@@ -131,10 +141,14 @@ public class V1 extends JFrame implements ActionListener {
 	Imprimir("El cateto 1 es: "+t.getCateto1());
 	Imprimir("El cateto 2 es: "+t.getCateto2());
 	Imprimir("El area es: "+t.area());
-	Imprimir("La hipotenusa 1 es: "+t.hipotenusa());
-	Imprimir("El perimetro es: "+t.perimetro());
 	}
 	void Imprimir (String s) {
 		txtS.append(s+"\n");
+	}
+	protected void do_btnNewButton_1_actionPerformed(ActionEvent e) {
+		double cateto1=Double.parseDouble(txtCat1.getText());
+		double cateto2=Double.parseDouble(txtCat2.getText());
+		TrianguloRectangulo t=new TrianguloRectangulo(cateto1, cateto2);
+		Imprimir("El perimetro es: "+t.perimetro());
 	}
 }	
