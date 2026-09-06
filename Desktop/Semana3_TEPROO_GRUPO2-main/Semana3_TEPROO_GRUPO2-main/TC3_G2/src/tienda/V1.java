@@ -55,7 +55,7 @@ public class V1 extends JFrame implements ActionListener {
 	 */
 	public V1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 506, 300);
+		setBounds(100, 100, 475, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -112,16 +112,19 @@ public class V1 extends JFrame implements ActionListener {
 		}
 		{
 			btnNewButton_1 = new JButton("Adicionar");
+			btnNewButton_1.addActionListener(this);
 			btnNewButton_1.setBounds(93, 86, 84, 20);
 			contentPane.add(btnNewButton_1);
 		}
 		{
 			btnNewButton_2 = new JButton("Elimminar");
+			btnNewButton_2.addActionListener(this);
 			btnNewButton_2.setBounds(187, 86, 79, 20);
 			contentPane.add(btnNewButton_2);
 		}
 		{
 			btnNewButton_3 = new JButton("Buscar");
+			btnNewButton_3.addActionListener(this);
 			btnNewButton_3.setBounds(276, 86, 72, 20);
 			contentPane.add(btnNewButton_3);
 		}
@@ -133,22 +136,42 @@ public class V1 extends JFrame implements ActionListener {
 				txtS = new JTextArea();
 				scrollPane.setViewportView(txtS);
 			}
+			btnModificar = new JButton("Modificar");
+			btnModificar.addActionListener(this);
+			btnModificar.setBounds(358, 85, 89, 23);
+			contentPane.add(btnModificar);
 		}	
-		
-		JButton btnNewButton_4 = new JButton("Modificar");
-		btnNewButton_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_4.setBounds(358, 85, 89, 23);
-		contentPane.add(btnNewButton_4);
+		btnModificar.addActionListener(this);
+		{
+			btnModificar = new JButton("Modificar");
+			btnModificar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			btnModificar.setBounds(358, 85, 89, 23);
+			contentPane.add(btnModificar);
+		}
 		Listado();
 	}
+	private JButton btnModificar;
 	ArregloProducto ap=new ArregloProducto();
+	private JButton btnNewButton_4;
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNewButton) {
 			do_btnNewButton_actionPerformed(e);
+		} else if (e.getSource() == btnNewButton_1) {
+			do_btnNewButton_1_actionPerformed(e);
+		} else if (e.getSource() == btnNewButton_2) {
+			do_btnNewButton_2_actionPerformed(e);
+		} else if (e.getSource() == btnNewButton_3) {
+			do_btnNewButton_3_actionPerformed(e);
 		}
+	 else if (e.getSource() == btnModificar) {
+        do_btnModificar_actionPerformed(e);
+    }
+	 else if (e.getSource() == btnModificar) {
+	    do_btnModificar_actionPerformed(e);
+	 }
 	}
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
 		try {
@@ -162,6 +185,92 @@ public class V1 extends JFrame implements ActionListener {
 			MostrarError();
 		}
 	}
+	protected void do_btnNewButton_1_actionPerformed(ActionEvent e) {
+		try {
+			int cod = Integer.parseInt(txtCod.getText());
+			int stock = Integer.parseInt(txtStock.getText());
+			double precio = Double.parseDouble(txtPre.getText());
+			String producto = txtPro.getText();
+
+			Producto p = ap.Buscar(cod);
+
+			if (p == null) {
+				ap.Adicionar(new Producto(cod, stock, precio, producto));
+				JOptionPane.showMessageDialog(this, "Producto registrado");
+				txtS.setText("");
+				Listado();
+			} else {
+				JOptionPane.showMessageDialog(this, "Código existe");
+			}
+
+		} catch (Exception e2) {
+			MostrarError();
+		}
+	}
+	protected void do_btnNewButton_2_actionPerformed(ActionEvent e) {
+		try {
+			int cod = Integer.parseInt(txtCod.getText());
+
+			Producto p = ap.Buscar(cod);
+
+			if (p != null) {
+				ap.EliminarProducto(p);
+				JOptionPane.showMessageDialog(this, "Producto eliminado");
+				txtS.setText("");
+				Listado();
+			} else {
+				JOptionPane.showMessageDialog(this, "No existe código");
+			}
+
+		} catch (Exception e2) {
+			MostrarError();
+		}
+	}
+	protected void do_btnNewButton_3_actionPerformed(ActionEvent e) {
+		try {
+			int cod = Integer.parseInt(txtCod.getText());
+			Producto p = ap.Buscar(cod);
+
+			if (p != null) {
+				txtPro.setText(p.getDes());
+				txtPre.setText("" + p.getPre());
+				txtStock.setText("" + p.getStock());
+			} else {
+				JOptionPane.showMessageDialog(this, "No existe código");
+			}
+
+		} catch (Exception e2) {
+			MostrarError();
+		}
+	}
+	protected void do_btnModificar_actionPerformed(ActionEvent e) {
+	    try {
+	        int cod = Integer.parseInt(txtCod.getText().trim());
+	        String producto = txtPro.getText().trim();
+	        double precio = Double.parseDouble(txtPre.getText().trim());
+	        int stock = Integer.parseInt(txtStock.getText().trim());
+
+	        Producto p = ap.Buscar(cod);
+
+	        if (p != null) {
+	            
+	            p.setDes(producto);
+	            p.setPre(precio);
+	            p.setStock(stock);
+
+	            
+	            txtS.setText("");
+	            Listado();
+
+	            JOptionPane.showMessageDialog(this, "Producto modificado");
+	        } else {
+	            JOptionPane.showMessageDialog(this, "No existe código");
+	        }
+	    } catch (Exception e2) {
+	        MostrarError();
+	    }
+		
+	}
 	void Imprimir (String s) {		
 		txtS.append(s+"\n");
 	}
@@ -174,5 +283,8 @@ public class V1 extends JFrame implements ActionListener {
 	}
 	void MostrarError() {
 		JOptionPane.showMessageDialog(this, "Error, Datos incorrectos");
+	}
+	void Mensaje(String s) {
+		JOptionPane.showMessageDialog(this, s);
 	}
 }

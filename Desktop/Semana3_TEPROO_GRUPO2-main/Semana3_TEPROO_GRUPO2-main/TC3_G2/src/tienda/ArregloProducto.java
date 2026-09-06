@@ -36,13 +36,19 @@ public double TotalInventario() {
 	}
 	return suma;
 }
-public boolean ModificarProducto(int cod, double nuevoPrecio, int nuevoStock) {
-	Producto p = Buscar(cod);
-	if (p != null) {
-		p.setPre(nuevoPrecio);
-		p.setStock(nuevoStock);
-		return true;
-	}
-	return false;
+
+public void ModificarProducto(int codigo, double nuevoPrecio, int nuevoStock) {
+    for (int i = 0; i < Tamaño(); i++) {
+        Producto p = Obtener(i);
+        if (p.getCod() == codigo) {
+            p.setPre(nuevoPrecio);
+            p.setStock(nuevoStock);
+            
+        }   
+        
+    
 }
 }
+}
+
+
